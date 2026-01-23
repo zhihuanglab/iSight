@@ -39,7 +39,7 @@ The system simultaneously predicts 5 key attributes of IHC images:
    - none
    - <25%
    - 25%-75%
-   - >75%
+   - \>75%
 
 4. **Tissue Type**: 58 classes
    - Various human tissue types (liver, lung, kidney, breast, etc.)
