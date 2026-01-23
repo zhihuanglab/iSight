@@ -71,8 +71,3 @@ bash inference_script.sh
 
 For questions or suggestions, please contact: [zhi.huang@pennmedicine.upenn.edu)]
 
-
-
----
-
-**Note**: This system is intended for research purposes only. Clinical applications require rigorous validation.
