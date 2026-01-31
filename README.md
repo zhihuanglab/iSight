@@ -16,8 +16,15 @@ A deep learning-based multi-task prediction system for automated analysis of imm
 
 *Source: Human Protein Atlas database ([v23.proteinatlas.org](http://v23.proteinatlas.org/ENSG00000170312-CDK1/))*
 
+## 🔗 Links
 
-**Dataset Location**: `validation_data/` directory contains representative samples with corresponding metadata and segmentation masks.
+| Resource | Link |
+|----------|------|
+| **Dataset** | [nirschl-lab/hpa10m](https://huggingface.co/datasets/nirschl-lab/hpa10m) |
+| **Model Checkpoint** | [nirschl-lab/iSight](https://huggingface.co/nirschl-lab/iSight) |
+
+
+**Validation Dataset Location**: `validation_data/` directory also contains representative samples with corresponding metadata and segmentation masks.
 
 ## 🎯 Core Features
 
