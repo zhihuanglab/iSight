@@ -1,4 +1,5 @@
 # iSight: Towards expert-AI co-assessment for improved immunohistochemistry staining interpretation
+[![arXiv](https://img.shields.io/badge/arXiv-2602.04063-b31b1b.svg)](https://arxiv.org/abs/2602.04063)  
 
 A deep learning-based multi-task prediction system for automated analysis of immunohistochemistry (IHC) pathology images and protein staining patterns.
 
