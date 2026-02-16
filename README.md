@@ -59,6 +59,8 @@ The system simultaneously predicts 5 key attributes of IHC images:
 
 ### Environment Setup
 
+**Typical install time**: ~5–10 minutes on a normal desktop computer (depending on network speed for downloading PyTorch and model weights).
+
 ```bash
 # 1. Create a new conda environment with Python 3.10
 conda create -n ihc python=3.10 -y
@@ -89,7 +91,19 @@ pip install -r requirements.txt
 bash inference_script.sh
 ```
 
+### Expected Output
 
+**Expected run time**: On a normal desktop computer with a standard GPU, each image can be processed **within a few seconds**.
+
+After running inference, the following files will be generated in the output directory (`results/`):
+
+| File | Description |
+|------|-------------|
+| `inference_results_<save_name>.csv` | Per-sample predictions with ground truth labels, predicted labels, and logits for all 5 tasks |
+| `metrics_<save_name>.csv` | Evaluation metrics (accuracy, balanced accuracy, weighted F1) for each task |
+| `metrics_<save_name>.json` | Same metrics in JSON format |
+| `inference_config.json` | Configuration used for this inference run |
+| `visualizations/<save_name>/` | Confusion matrix plots (counts and normalized) for each task (when `--generate_visualizations` is enabled) |
 
 ## 📧 Contact
 
