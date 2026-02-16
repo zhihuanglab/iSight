@@ -57,6 +57,22 @@ The system simultaneously predicts 5 key attributes of IHC images:
    - cancer
 
 
+### Environment Setup
+
+```bash
+# 1. Create a new conda environment with Python 3.10
+conda create -n ihc python=3.10 -y
+conda activate ihc
+
+# 2. Install PyTorch with CUDA support
+#    Check your CUDA version first: nvidia-smi
+#    For versions, see: https://pytorch.org/get-started/previous-versions/
+# pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cu121
+
+# 3. Install remaining dependencies
+pip install -r requirements.txt
+```
+
 
 ### Running Inference
 
