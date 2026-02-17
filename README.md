@@ -75,7 +75,6 @@ conda activate ihc
 pip install -r requirements.txt
 ```
 
-
 ### Running Inference
 
 ```bash
