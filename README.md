@@ -23,8 +23,8 @@ A deep learning-based multi-task prediction system for automated analysis of imm
 iSight reads an IHC image at two levels.
 
 - **iSight-slide** looks at the whole image and returns one assessment per image: staining
-  intensity, subcellular location, stained fraction, tissue type and malignancy. It needs no
-  cell segmentation and covers every marker in the training corpus.
+  location, intensity and stained fraction. It needs no cell segmentation and covers every
+  marker in the training corpus.
 - **iSight-cell** works cell by cell: every cell is segmented, **iSight-target** picks out the
   cells of interest for that tissue (tumour cells in a carcinoma, hepatocytes in liver, and
   so on), and iSight-cell then scores each of them for staining intensity and location. The
