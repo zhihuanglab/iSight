@@ -9,11 +9,12 @@ A deep learning-based multi-task prediction system for automated analysis of imm
 
 **Figure 1: Overview of the HPA10M dataset composition and iSight's multi-task architecture for automated IHC assessment.**
 
-**a**, Workflow illustrating how the dataset is curated from the Human Protein Atlas repository.
-**b**, Composition showing 45 distinct normal tissue types included in the HPA10M dataset.
-**c**, Breakdown of 20 primary cancer types represented in HPA10M.
-**d**, Architecture overview: whole slide images are first partitioned into 336×336 pixel patches, then encoded using CLIP-ViT-large-patch-14-336. Features from all patches are aggregated through CLAM's gated attention mechanism. In parallel, clinical metadata (tissue type, SNOMED codes, antibody details) is processed via CLIP's text encoder.
-**e**, Multi-task prediction framework: five independent classification heads process the aggregated features to predict staining characteristics (subcellular location, intensity level, positive cell percentage) and specimen properties (tissue category, malignancy).
+**a**, Dataset construction workflow from the Human Protein Atlas.
+**b**, Distribution of 45 normal tissue types in HPA10M.
+**c**, Distribution of 20 major cancer types in HPA10M.
+**d**, Protein coverage of HPA10M. Each bar is one of the 14,708 protein targets, ranked by image count; shading gives the number of antibodies for that protein (9,430 targets have one antibody, 4,012 have two, 1,000 have three and 266 have four or more). The median target has 513 images. For machine learning purposes the dataset is randomly split into a training set of 10,493,672 images and a held-out test set of 2,000 images.
+**e**, The model processes images by dividing them into 336×336 patches, extracting visual features with a Vision Transformer (CLIP-ViT-large-patch-14-336), and aggregating patch-level representations using gated attention-based multiple instance learning (MIL). Text metadata, including tissue type, SNOMED diagnosis and antibody information, is encoded separately using the CLIP text encoder.
+**f**, The multi-task learning framework simultaneously predicts staining location, intensity and quantity.
 
 *Source: Human Protein Atlas database ([v23.proteinatlas.org](http://v23.proteinatlas.org/ENSG00000170312-CDK1/))*
 
@@ -69,15 +70,17 @@ contributes all 576 of its ViT tokens; a gated attention module scores each toke
 softmaxes **across patches** at that position, so pooling is per token rather than per patch.
 The pooled representation is the mean over tokens. Two conditioning signals are added to it: a
 text (context) branch encoding the query (tissue, diagnosis and gene), applied with dropout
-during training, and a cell-type embedding. Five linear heads predict:
+during training, and a cell-type embedding. Linear heads predict the three staining tasks:
 
 | Task | Classes | Labels |
 |------|---------|--------|
-| **Staining intensity** | 4 | negative, weak, moderate, strong |
 | **Staining location** | 4 | none, cytoplasmic/membranous, nuclear, cytoplasmic/membranous,nuclear |
+| **Staining intensity** | 4 | negative, weak, moderate, strong |
 | **Staining quantity** | 4 | none, <25%, 25%-75%, >75% |
-| **Tissue type** | 58 | human tissue types |
-| **Malignancy** | 2 | normal, cancer |
+
+The released checkpoint also carries two auxiliary heads used as additional supervision while
+training — tissue type (58 classes) and malignancy (2 classes). `scripts/inference.py` reports
+them alongside the three staining tasks.
 
 ```
 isight_slide/
