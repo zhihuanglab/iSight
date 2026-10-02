@@ -25,7 +25,7 @@ iSight reads an IHC image at two levels.
 - **iSight-slide** looks at the whole image and returns one assessment per image: staining
   location, intensity and stained fraction. It needs no cell segmentation and covers every
   marker in the training corpus.
-- **iSight-cell** works cell by cell: all nuclei are segmented, **iSight-target** picks out the
+- **iSight-cell** works cell by cell: nuclei are segmented, **iSight-target** picks out the
   cells of interest for that tissue (tumour cells in a carcinoma, hepatocytes in liver, and
   so on), and iSight-cell then scores each of them for staining intensity and location. The
   image-level result is built up from the cells, so it comes with a cell count, a spatial map
@@ -126,8 +126,8 @@ cd isight_slide && python train.py --config config/config.ini
 
 ## 🧫 iSight-cell (with iSight-target)
 
-All nuclei in an image are segmented with Cellpose-SAM. **iSight-target**, a UNI2-h backbone
-with one binary head per class in `isight_cell/meta/classes_43.csv` (43 tissue × cell-type classes), selects
+Nuclei are segmented first (Cellpose-SAM here; StarDist works equally well, and was used for
+the prostate cohort). **iSight-target**, a UNI2-h backbone with one binary head per class in `isight_cell/meta/classes_43.csv` (43 tissue × cell-type classes), selects
 the cells of interest for the image's class. **iSight-cell**, a UNI2-h backbone fully
 fine-tuned with two heads, then predicts staining intensity (4) and subcellular location (4)
 for each selected cell.
@@ -162,9 +162,6 @@ Evaluation: `pipeline/val_richeval.py` (validation, image-level accuracy and QWK
 `pipeline/eval_test500k_fixedloc.py` (held-out 500K set), `pipeline/eval_flats_fixed.py`
 (any image list, same aggregation), `pipeline/agg_uncap.py` (image-level metrics with no
 per-image cell cap).
-
-Nuclei segmentation runs upstream of step 2: Cellpose-SAM at its released settings, nucleus
-diameter 20 px.
 
 | variable | what |
 |---|---|
