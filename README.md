@@ -126,11 +126,11 @@ cd isight_slide && python train.py --config config/config.ini
 
 ## 🧫 iSight-cell (with iSight-target)
 
-Nuclei are segmented first (Cellpose-SAM or StarDist). **iSight-target**, a UNI2-h backbone
-with one binary head per class in `isight_cell/meta/classes_43.csv` (43 tissue × cell-type classes), selects
-the cells of interest for the image's class. **iSight-cell**, a UNI2-h backbone fully
-fine-tuned with two heads, then predicts staining intensity (4) and subcellular location (4)
-for each selected cell.
+Nuclei are segmented first (Cellpose-SAM or StarDist). **iSight-target** then selects the cells
+of interest for the image's class, with one binary head per class in
+`isight_cell/meta/classes_43.csv` (43 tissue × cell-type classes). **iSight-cell** predicts
+staining intensity (4) and subcellular location (4) for each selected cell. Both are UNI2-h
+backbones, fully fine-tuned.
 
 ```
 isight_cell/code/
